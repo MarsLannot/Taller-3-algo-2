@@ -7,6 +7,7 @@ class ArregloRedimensionableDeRecordatorios implements SecuenciaDeRecordatorios 
 
 
 
+
     public ArregloRedimensionableDeRecordatorios() {
         this.recordatorios = new Recordatorio[10];
         this.longitud = 0;
@@ -22,36 +23,35 @@ class ArregloRedimensionableDeRecordatorios implements SecuenciaDeRecordatorios 
         this.longitud = vector.longitud;
     }
 
+
+
+
     public int longitud() {
         return longitud;
     }
 
+
     public void agregarAtras(Recordatorio i) {
-        int j;
         Recordatorio[] newRecordatorios = new Recordatorio[longitud + 1];
 
-        for ( j = 0; j < longitud; j++ ){
+        for (int j = 0; j < longitud; j++ ){
             newRecordatorios[j] = recordatorios[j];
         }
-
+        
         newRecordatorios[longitud] = i;
         longitud ++;
+        recordatorios = newRecordatorios;
 
     }
+
 
     public Recordatorio obtener(int i) {
-        return recordatorios[i];
+       return recordatorios[i];
 
     }
+    
 
     public void quitarAtras() {
-        int j;
-        Recordatorio[] newRecordatorios = new Recordatorio[longitud + 1];
-
-        for ( j = 0; j < longitud - 1; j++ ){
-            newRecordatorios[j] = recordatorios[j];
-        }
-
         longitud --;
     }
 
@@ -60,6 +60,18 @@ class ArregloRedimensionableDeRecordatorios implements SecuenciaDeRecordatorios 
     }
 
     
+    public boolean estaLleno() {
+        return longitud == recordatorios.length;
+    }
+
+    public void redimensionar() {
+        int nuevaCapacidad = recordatorios.length * 2;
+        Recordatorio[] nuevoArreglo = new Recordatorio[nuevaCapacidad];
+        for (int i = 0; i < longitud; i++) {
+            nuevoArreglo[i] = recordatorios[i];
+        }
+        recordatorios = nuevoArreglo;
+    }
 
     public ArregloRedimensionableDeRecordatorios copiar() {
         ArregloRedimensionableDeRecordatorios copia = new ArregloRedimensionableDeRecordatorios();

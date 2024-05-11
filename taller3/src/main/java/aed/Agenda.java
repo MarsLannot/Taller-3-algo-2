@@ -3,7 +3,6 @@ package aed;
 public class Agenda {
 
     private Fecha fechaActual;
-    private Recordatorio recordatorio;
     private ArregloRedimensionableDeRecordatorios recordatorios; 
 
     public Agenda(Fecha fechaActual) {
@@ -13,23 +12,29 @@ public class Agenda {
     }
 
     public void agregarRecordatorio(Recordatorio recordatorio) {
-        recordatorios.agregarAtras(recordatorio);
+        if (recordatorios.estaLleno()){
+            recordatorios.redimensionar();
+            recordatorios.agregarAtras(recordatorio);
+        } else{
+            recordatorios.agregarAtras(recordatorio);
+
+        }
+
     }
-        
+
+
+
     @Override
 public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append(fechaActual.toString()).append("\n");
-    sb.append("=====\n");
+    String result = fechaActual.toString() + "\n";
+    result += "=====\n";
     for (int i = 0; i < recordatorios.longitud(); i++) {
-        Recordatorio rec = recordatorios.obtener(i);
-        if (rec != null) {
-            sb.append(rec.mensaje()).append(" @ ")
-              .append(rec.fecha().toString()).append(" ")
-              .append(rec.horario().toString()).append("\n");
+        if (recordatorios.obtener(i) != null && recordatorios.obtener(i).fecha().equals(fechaActual)) {
+
+                result += recordatorios.obtener(i).toString() + "\n";
         }
     }
-    return sb.toString();
+    return result;
 }
 
 

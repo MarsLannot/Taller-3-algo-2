@@ -20,7 +20,9 @@ public class Horario {
 
     @Override
     public String toString() {
-        if (this.hora < 10 && this.minutos < 10 )
+        if(this.minutos == 0)
+            return this.hora + ":" + this.minutos;
+        else if (this.hora < 10 && this.minutos < 10 )
             return "0" + this.hora + ":" + "0" + this.minutos;
         else if (this.hora >= 10 && this.minutos < 10)
             return this.hora + ":" + "0" + this.minutos;
